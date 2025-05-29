@@ -5,10 +5,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button.jsx";
 import { Checkbox } from "@/components/ui/checkbox";
-import { queryGenerator } from "../lib/utils.js";
+import { ArrowDown, PlusCircle } from "lucide-react";
+// import { queryGenerator } from "../lib/utils.js";
 
 export default function Header() {
   const [items, setItems] = useState({
@@ -20,23 +21,26 @@ export default function Header() {
     setItems((prev) => ({ ...prev, [key]: checked }));
   }
 
-  useEffect(() => {
-    const result = queryGenerator(items);
-    console.log(result);
-  }, [items.draft, items.paid, items.pending]);
+  //   useEffect(() => {
+  //     const result = queryGenerator(items);
+  //     console.log(result);
+  //   }, [items.draft, items.paid, items.pending]);
 
   console.log(items);
 
   return (
     <header>
-      <div className="container">
+      <div className="base-container flex items-center justify-between py-15">
         <div>
           <h1>Invoices</h1>
           <p>There are 7 total invoices</p>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Open</Button>
+            <Button variant="ghost" className="ml-auto mr-10">
+              Filter by status
+              <ArrowDown className="text-[#7C5DFA]" />
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>Appearance</DropdownMenuLabel>
@@ -60,6 +64,10 @@ export default function Header() {
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
+        <Button className="bg-[#7C5DFA] rounded-full">
+          <PlusCircle className=" bg-[#fffff]" />
+          New Invoice
+        </Button>
       </div>
     </header>
   );
