@@ -13,9 +13,9 @@ import { ArrowDown, PlusCircle } from "lucide-react";
 
 export default function Header() {
   const [items, setItems] = useState({
-    draft: false,
-    paid: false,
-    pending: false,
+    draft: true,
+    paid: true,
+    pending: true,
   });
   function handleChange(key, checked) {
     setItems((prev) => ({ ...prev, [key]: checked }));
@@ -32,12 +32,12 @@ export default function Header() {
     <header>
       <div className="base-container flex items-center justify-between py-15">
         <div>
-          <h1>Invoices</h1>
-          <p>There are 7 total invoices</p>
+          <h1 className="text-[32px] font-[700]">Invoices</h1>
+          <p className="text-[#888EB0] text-[12px] font-[400]">There are 7 total invoices</p>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="ml-auto mr-10">
+            <Button variant="ghost" className="ml-auto mr-10 text-[12px] font-[700]">
               Filter by status
               <ArrowDown className="text-[#7C5DFA]" />
             </Button>

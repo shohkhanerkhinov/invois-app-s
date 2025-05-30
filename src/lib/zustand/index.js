@@ -1,6 +1,12 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
-const useStore = create((set) => ({
-  count: 1,
-  inc: () => set((state) => ({ count: state.count + 1 })),
-}))
+export const useAppStore = create((set) => {
+  return {
+    filter: "",
+    setFilter(value) {
+      return set(() => {
+        return { filter: value };
+      });
+    },
+  };
+});
