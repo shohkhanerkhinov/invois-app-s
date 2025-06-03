@@ -5,26 +5,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button.jsx";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowDown, PlusCircle } from "lucide-react";
-// import { queryGenerator } from "../lib/utils.js";
+import { queryGenerator } from "../lib/utils.js";
+import { useAppStore } from "../lib/zustand/index.js";
 
 export default function Header() {
+  const { setFilter } = useAppStore();
   const [items, setItems] = useState({
     draft: true,
     paid: true,
     pending: true,
   });
+
   function handleChange(key, checked) {
     setItems((prev) => ({ ...prev, [key]: checked }));
   }
 
-  //   useEffect(() => {
-  //     const result = queryGenerator(items);
-  //     console.log(result);
-  //   }, [items.draft, items.paid, items.pending]);
+  useEffect(() => {
+    const result = queryGenerator(items);
+    setFilter(result);
+  }, [JSON.stringify(items)]);
 
   console.log(items);
 
@@ -33,11 +36,16 @@ export default function Header() {
       <div className="base-container flex items-center justify-between py-15">
         <div>
           <h1 className="text-[32px] font-[700]">Invoices</h1>
-          <p className="text-[#888EB0] text-[12px] font-[400]">There are 7 total invoices</p>
+          <p className="text-[#888EB0] text-[12px] font-[400]">
+            There are 7 total invoices
+          </p>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="ml-auto mr-10 text-[12px] font-[700]">
+            <Button
+              variant="ghost"
+              className="ml-auto mr-10 text-[12px] font-[700]"
+            >
               Filter by status
               <ArrowDown className="text-[#7C5DFA]" />
             </Button>

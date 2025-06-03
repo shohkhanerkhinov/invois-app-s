@@ -24,13 +24,15 @@ export default function InvoiceCaed() {
       .finally(() => {
         setLoding(false);
       });
-  }, []);
+  }, [JSON.stringify(filter)]);
 
   if (loding) {
     return <CardSkleton />;
   }
 
   if (error) {
+    console.log(error.message);
+
     return error.message;
   }
 

@@ -2,15 +2,17 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 
 // All
 export async function getInvoices(route = "/invoices", query = "") {
-  const req = await fetch(baseURL + route + query ? `?status=${query}` : "");
+  const req = await fetch(
+    `${baseURL + route}${query ? `?status=${query}` : ""}`
+  );
   if (req.status === 200) {
     const result = await req.json();
+
     return result.data;
   } else {
     throw new Error("Something went wrong :(");
   }
 }
-
 
 // Get by id
 export async function getInvoice(id) {
