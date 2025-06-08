@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { getInvoices } from "../request";
-import CardSkleton from "../components/CardSkleton";
-import MyCard from "../components/MyCard";
-import InvoiceCaed from "../components/InvoiceCaed";
+import InvoiceCard from "../components/InvoiceCard";
+function Home() {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    document.documentElement.dataset.theme = theme;
+  }, []);
 
-export default function Home() {
   return (
     <div>
       <Header />
-      <InvoiceCaed />
+      <InvoiceCard />
     </div>
   );
 }
+
+export default Home;

@@ -1,35 +1,45 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import StatusBadge from "./StatusBadge";
-import photo from "../assets/ArrowRight.svg";
+import { ArrowRight } from "lucide-react";
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import StatustBadge from "./ui/StatustBadge";
+import { useNavigate } from "react-router-dom";
 
-export default function MyCard({
-  invoiceId = "RT3080",
-  createdAt = "Due 19 Aug 2021",
-  clientName = "Jensen Huang",
-  price = "1800.90",
+function MyCard({
+  postCode = "RT3080",
+  createdAt = "Due 01 Oct 2021",
+  clientName = "John Morrison",
+  total = "14,002.33",
   status = "draft",
+  id = "1",
 }) {
+  const navigate = useNavigate();
   return (
-    <Card className="p-4">
-      <CardHeader className="p-3">
-        <div className="flex items-center justify-between gap-4">
-          <CardTitle className="whitespace-nowrap">#{invoiceId}</CardTitle>
-          <CardDescription className="whitespace-nowrap">
-            {createdAt}
-          </CardDescription>
-          <span className="whitespace-nowrap font-medium">{clientName}</span>
-          <span className="whitespace-nowrap font-bold">
-            ${parseFloat(price).toFixed(2)}
-          </span>
-          <StatusBadge status={status} />
-          <img src={photo} alt="Arrow" className="w-4 h-4" />
+    <Card
+      onClick={() => navigate(`${id}`)}
+      className={
+        "border-3 border-transparent transition-all hover:border hover:border-purple-600 w-full mx-auto"
+      }
+    >
+      <CardHeader>
+        <div className="flex items-center  justify-between gap-1 flex-wrap">
+          <div className="cards mr-auto">
+            <CardTitle className={"font-bold text-2xl"}>
+              <span className="text-[#7E88C3] ">#</span>
+              {postCode}  
+            </CardTitle>
+            <span className="text-[#858BB2] text-left">Due {createdAt}</span>
+            <span className="text-[#858BB2] hidden sm:block ">
+              {clientName}
+            </span>
+          </div>
+          <div className="cards">
+            <span className="font-bold text-xl">£{total}</span>
+            <StatustBadge status={status} />
+          </div>
+          <ArrowRight className="text-[#7C5DFA] cordArrow" />
         </div>
       </CardHeader>
     </Card>
   );
 }
+
+export default MyCard;
